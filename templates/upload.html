@@ -1,0 +1,41 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+	
+	<div class="section">
+		<div class="info">
+			<h3><span class="hospitalNice">{{pd['nice_name_dict'][hospital]}}</span> > <span class="specialtyNice">{{pd['nice_name_dict'][specialty]}}</span>:</h3>
+		</div>
+	</div>
+
+	<form action="/convert/{{hospital}}/{{specialty}}" method="POST" enctype="multipart/form-data">
+
+
+		{% include "static/rotas/"+hospital+"/"+specialty+"/specific_info.html" ignore missing %}
+
+
+		<div class="section">
+			<div class="mini-section">
+				<label for="rota">Upload rota:</label>
+			</div>
+			<div class="mini-section">
+				<input type="file" required name="rota" accept=".xls, .xlsx, .csv, .docx, .doc">
+			</div>
+		</div>
+
+		{% include "static/rotas/"+hospital+"/"+specialty+"/constants.html" ignore missing %}
+
+
+		<div class="section">
+			<button type='submit' class='btn btn-small btn-custom'>Convert!</button>
+		</div>
+		
+
+		{% include "static/rotas/"+hospital+"/"+specialty+"/troubleshooting.html" ignore missing %}
+	</form>
+
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

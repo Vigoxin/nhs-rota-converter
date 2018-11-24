@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home page</title>
+	
+	<!-- Materialize - CSS -->
+		<link rel="stylesheet" type="text/css" href="/static/lib/materialize-src/materialize_tailored.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Jquery -->
+		<script type="text/javascript" src='static/lib/jquery-3.2.1.min.js'></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+
+</head>
+	<body>
+
+		<div class="container">
+			<div class="box">
+				<h1 class="header">FY1 Rota Converter</h1>
+				
+				<div class="content">
+
+					<div class="navbar">
+						<form action="/"><button class="btn btn-custom"><i class="material-icons">home</i></button></form>
+						<form action="/expand"><button class="btn btn-custom">h e l p</button></form>
+					</div>
+				
+				<div class="info">
+					<p>If you are an FY1 doctor in the UK, use this site to convert your rota into a csv file which can be imported into Google Calendar. Simply:</p>
+					
+					<ol>
+						<li>Select your hospital and specialty/department on the home page</li>
+						<li>Upload your rota as an Excel file</li>
+						<li>Specify your row/column and any other specifics</li>
+						<li>Click 'convert!' and your converted rota will download as a converted csv file</li>
+						<li>Congrats, you can now import the converted rota into Google calendar</li>
+					</ol>
+					
+					<br>
+					<hr>
+				</div>
+					
+					{% block content %}{% endblock %}
+				</div>
+				
+				<div class="footer"> <hr> <div class="section">
+					Vignesh Dhileepan &copy; 2018 - <a href="mailto: vignesh.dhileepan@gmai">vignesh.dhileepan@gmail.com</a>
+				</div></div>
+
+			</div>
+			
+			
+		</div>
+
+		<script type="text/javascript">
+			var pd = {{pd | tojson}};
+			for (key in pd) {
+				window[key] = pd[key];
+			}
+
+			function nastyToNice(nasty) {
+				return nice_name_dict[nasty];
+			}
+
+			function niceToNasty(nice) {
+				return nice_name_dict_reversed[nice];
+			}
+
+		</script>
+
+		{% block javascript %}{% endblock %}
+	</body>
+</html>

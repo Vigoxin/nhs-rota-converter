@@ -1,0 +1,145 @@
+$fav-crimson: #fc043d;
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+	// This defines what 1rem is (10px)
+	font-size: 62.5%;
+}
+
+body {
+	box-sizing: border-box;
+	background: dodgerblue;
+	font-family: Arial;
+	padding: 1rem;
+	font-size: 2rem;
+	line-height: 1.7;
+}
+
+
+.container {
+	width: 80rem;
+	margin: 0 auto;
+}
+
+.box {
+	
+	border: 1rem solid #fff;
+	border-radius: 1rem;
+	padding: 2rem;
+	background: lavender;
+
+	.header {
+		text-align: center;
+		padding-bottom: 2rem;
+	}
+
+	.info {
+		text-align: left;
+		font-size: 2rem;
+
+		width: 60rem;
+		margin: 2.5rem auto;
+		line-height: 2.4rem;
+		p {
+			margin: 1rem auto;
+		}
+
+		ol, ul {
+			padding-left: 3rem;
+		}
+	}
+	
+	.btn-custom {
+			background: dodgerblue;
+			text-transform: none;
+			font-size: 1.5rem;
+
+			transition: transform 0.3s;
+			&:hover {
+				transform: translateY(-3px) scale(1.05);
+			}
+
+			&:active {
+				transform: translateY(0) scale(1.05);
+			}
+
+			i {
+				font-size: inherit;
+			}
+		}
+	.content {
+		text-align: center;
+		
+		.navbar {
+			width: 30rem;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.section {
+			margin: 3rem 0;
+		}
+
+		
+
+		select {
+			font-size: 1.6rem;
+			height: 2rem;
+			width: 30rem;
+			text-align: center;
+			
+		}
+
+		input[type="file"] {
+			font-size: 2rem;
+			max-width: 30rem;
+			margin-left: 10rem;
+			line-height: 0;
+		}
+
+		input[type="text"], input[type="number"] {
+			font-size: 25px;
+			height: 35px;
+			border: 2px dodgerblue solid;
+			border-radius: 5px;
+			text-align: center;
+	
+			&:focus {
+				outline: none;
+			}
+
+			&.one-letter {
+				width: 55px;
+			}
+
+			&.few-letters {
+				width: 70px;
+			}	
+			
+		}
+	
+		.caption {
+			color: #888;
+			font-size: 0.8em;
+			margin: 1rem 0;
+		}	
+
+	}
+
+	.footer {
+		font-size: 2rem;
+		text-align: center;
+		margin-top: 100px;
+	}
+
+}
+
+
