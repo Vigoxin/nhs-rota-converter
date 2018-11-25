@@ -26,7 +26,7 @@ from rotas import nice_name_dict_reversed
 rotas_temp = deepcopy(rotas)
 for hosp in rotas_temp:
 	for specialty in rotas_temp[hosp]:
-		pop_list = ['converter', 'img']
+		pop_list = ['converter']
 		for to_pop in pop_list:
 			rotas_temp[hosp][specialty].pop(to_pop, None)
 pd = {
@@ -60,6 +60,14 @@ def home():
 @app.route('/upload/<hospital>/<specialty>')
 def upload(hospital, specialty):
 	return render_template('templates/upload.html', hospital=hospital, specialty=specialty, pd=pd)
+
+@app.route('/expand')
+def expand():
+	return render_template('templates/expand.html', pd=pd)
+
+@app.route('/about')
+def about():
+	return render_template('templates/about.html', pd=pd)
 
 @app.route('/convert/<hospital>/<specialty>', methods=['POST'])
 def convert_route(hospital, specialty):
