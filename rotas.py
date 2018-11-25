@@ -44,7 +44,9 @@ nice_name_dict = {
     'oxford': 'Oxford - John Radcliffe Hospital',
 
     'medicine': 'Medicine',
-    'surgery': 'Surgery'
+    'respiratory': 'Respiratory Medicine',
+    'surgery': 'Surgery',
+    'paediatrics': 'Paediatrics',
 }
 
 nice_name_dict_reversed = {v: k for k, v in nice_name_dict.items()}
