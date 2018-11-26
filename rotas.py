@@ -35,7 +35,7 @@ for hosp in get_dirs(rotas_dir):
         # rota['converter'] = 'function'
 
         # imports image path
-        rota['img'] = f'{hosp}/{specialty}/rota_screenshot.png'
+        rota['img'] = f'/static/rotas/{hosp}/{specialty}/rota_screenshot.png'
 
 nice_name_dict = {
     'ashford_kent': 'Ashford, Kent - William Harvey Hospital',
@@ -44,6 +44,7 @@ nice_name_dict = {
     'oxford': 'Oxford - John Radcliffe Hospital',
 
     'medicine': 'Medicine',
+    'medicine-hcoop': 'Medicine and HCOOP',
     'respiratory': 'Respiratory Medicine',
     'surgery': 'Surgery',
     'paediatrics': 'Paediatrics',

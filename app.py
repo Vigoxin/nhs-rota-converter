@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 #  --------- SETUP ---------
 
 # initialise app
-app = Flask(__name__, template_folder='./')
+app = Flask(__name__, template_folder='./', static_folder='./static')
 
 # Set up RequestID
 RequestID(app)

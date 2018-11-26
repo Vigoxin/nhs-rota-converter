@@ -3,7 +3,7 @@
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
@@ -63,6 +63,11 @@ body {
 }
 .box .content {
   text-align: center;
+  /* The Modal (background) */
+  /* Modal Content (Image) */
+  /* Add Animation - Zoom in the Modal */
+  /* The Close Button */
+  /* 100% Image Width on Smaller Screens */
 }
 .box .content .navbar {
   width: 30rem;
@@ -75,9 +80,79 @@ body {
 }
 .box .content select {
   font-size: 1.6rem;
-  height: 2rem;
-  width: 30rem;
+  height: 3rem;
+  width: 33rem;
   text-align: center;
+}
+.box .content .rota-screenshot {
+  display: block;
+  width: 55%;
+  margin: 1rem auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.box .content .rota-screenshot:hover {
+  opacity: 0.7;
+}
+.box .content .modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding: 5rem;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+.box .content .modal-content {
+  margin: auto;
+  display: block;
+  width: 100%;
+}
+.box .content .modal-content {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.box .content .close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  line-height: 0.7;
+}
+.box .content .close:hover,
+.box .content .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 700px) {
+  .box .content .modal-content {
+    width: 100%;
+  }
 }
 .box .content input[type=file] {
   font-size: 2rem;
