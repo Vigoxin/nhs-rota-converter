@@ -2,6 +2,8 @@
 
 {% block content %}
 
+		{% include "templates/short_intro.html" %}
+
 		<form class='upload-page-form' action="">
 			<div class="section">
 				<label for='hospital'>Select your hospital:</label>
@@ -32,9 +34,7 @@
 			<div class="section">
 				<button type='submit' class='btn btn-custom btn-small'>Go to upload page</button>
 			</div>
-			<div class="section">
-				<a href="/expand">Help! My hospital/specialty isn't listed</a>
-			</div>
+
 		</form>
 
 {% endblock %}

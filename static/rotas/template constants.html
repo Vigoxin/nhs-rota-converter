@@ -1,0 +1,51 @@
+<!-- Name -->
+<div class="section">
+	<label for="column_letter">Which column are you?</label>
+	<p class="caption">Please type just one letter from D to Z - if you are unsure, open your rota in Excel and check the column letters at the top</p>
+	<input type="text" class="one-letter" required name="column_letter" pattern="[a-z]|[A-Z]" maxlength=1>
+</div>
+
+<div class="section">
+	<label for="row_number">Which row are you?</label>
+	<p class="caption">Please type the row number which corresponds to your name - if you are unsure, open your rota in Excel and check the row numbers on the left</p>
+	<input type="text" class="one-letter" required name="row_number" pattern="^\d{1,2}$" maxlength=2>
+</div>
+
+<!-- Column letters/double letters for dates-->
+<div class="section">
+	<label for="col_start">What's the column letter/double letter of the first date you want to include from the rota?</label>
+	<p class="caption">You can find this by opening your rota in Excel and looking at the column names at the top</p>
+	<input type="text" class="few-letters" required name="col_start" pattern="[A-Za-z]{1,2}]" maxlength=2>
+</div>
+
+<div class="section">
+	<label for="col_end">What's the column letter/double letter of the last date you want to include from the rota?</label>
+	<p class="caption">You can find this by opening your rota in Excel and looking at the column names at the top</p>
+	<input type="text" class="few-letters" required name="col_end" pattern="[A-Za-z]{1,2}]" maxlength=2>
+</div>
+
+<!-- Row numbers for dates -->
+<div class="section">
+	<label for="row_start">What's the row number of the first date you work?</label>
+	<p class="caption">You can find this by opening your rota in Excel and looking at the row numbers to the left</p>
+	<input type="text" class="few-letters" required name="row_start" pattern="^\d{0,9}$" maxlength=4>
+</div>
+
+<div class="section">
+	<label for="row_end">What's the row number of the very last date you work?</label>
+	<p class="caption">You can find this by opening your rota in Excel and looking at the row numbers to the left</p>
+	<input type="text" class="few-letters" required name="row_end" pattern="^\d{0,9}$" maxlength=4>
+</div>
+
+<!-- Actual dates -->
+<div class="section">
+	<label for="date_start">What's the first date you want to include from the rota?</label>
+	<p class="caption">Please select a date which is in the date list of the spreadsheet</p>
+	<input type="date" name="date_start" id="date_start">
+</div>
+
+<div class="section">
+	<label for="date_end">What's the last date you want to include from the rota?</label>
+	<p class="caption">Please select a date which is in the date list of the spreadsheet</p>
+	<input type="date" name="date_end" id="date_end">
+</div>

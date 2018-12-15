@@ -1,11 +1,3 @@
-		<div class="section">
-			<label for="name">Which name are you?</label>
-			<p class="caption">Please type the name exactly as it appears on the left of the rota (case sensitive)</p>
-			<input type="text" required name="name" pattern=".+">
-		</div>
-		
-		<div class="section">
-			<label for="year_first">What's the year of the first date in the rota?</label>
-			<p class="caption">Please type a 4-digit year</p>
-			<input type="text" required name="year_first" pattern="^\d{4}$" maxlength=4>
-		</div>
+{% include "static/rotas/template_form_fields/name_name.html" %}
+
+{% include "static/rotas/template_form_fields/date_start_date.html" %}

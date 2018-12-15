@@ -1,17 +1,5 @@
-		<div class="section">
-			<label for="column_letter">Which column are you?</label>
-			<p class="caption">Please type just one letter from C to Z - if you are unsure, open your rota in Excel and check</p>
-			<input type="text" class="one-letter" required name="column_letter" pattern="[c-z]|[C-Z]" maxlength=1>
-		</div>
+{% include "static/rotas/template_form_fields/column_letter_name.html" %}
 
-		<div class="section">
-			<label for="row_start">What's the row number of the first date you work?</label>
-			<p class="caption">You can find this by opening your rota in Excel and looking at the row numbers to the left</p>
-			<input type="text" class="few-letters" required name="row_start" pattern="^\d{0,9}$" maxlength=4>
-		</div>
+{% include "static/rotas/template_form_fields/date_start_date.html" %}
 
-		<div class="section">
-			<label for="row_end">What's the row number of the very last date you work?</label>
-			<p class="caption">You can find this by opening your rota in Excel and looking at the row numbers to the left</p>
-			<input type="text" class="few-letters" required name="row_end" pattern="^\d{0,9}$" maxlength=4>
-		</div>
+{% include "static/rotas/template_form_fields/date_end_date.html" %}

@@ -4,31 +4,60 @@ import pandas as pd
 import os
 from datetime import date, timedelta, datetime
 
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
+from utilities import *
+
 # Always add when using pandas
 pd.set_option('display.max_columns', 10)
 pd.set_option('display.max_rows', 100)
 
 def convert(input_path, constants):
 
-	# Constants
-	input_file_name = input_path
-
+# Setup
 	# Constants of individual
 	col_letter = constants['column_letter'].upper()
-	row_start = int(constants['row_start'])
-	row_end = int(constants['row_end'])
+	date_start = datetime.strptime(constants['date_start'], '%Y-%m-%d')
+	date_end = datetime.strptime(constants['date_end'], '%Y-%m-%d')
+	
+	# Constants of rota format
+	rota_datetime_format = '%A, %d %B %Y'
+	dates_letnum = 'B' #the column/row which has the dates in it
+	entries_to_exclude = ['BH', 'off']
 
-	# Main
-	df = pd.read_excel(input_file_name, header=None)
-	df.columns = [chr(65+i) for i, rota_entry in enumerate(df.columns)]
+# Main
+	# Read file
+	df = pd.read_excel(input_path, header=None)
+
+	# Match indexes and headers to excel
+	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
 	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
 
-	print(df)
-	df = df.rename(columns={'B': 'Date'})
-	df = df[['Date', col_letter]].loc[row_start:row_end, :]
+	# Define number of rows to read: If rota is horizontal, then specify nrows for pd.read_excel. If rota is vertical, then nrows=None
+	nrows = None
 
-	# Dropping columns that are null/not a timestamp in the date column
+	# Load again but only nrows number of rows
+	df = pd.read_excel(input_path, nrows=nrows, header=None)
+
+	# Match indexes and headers to excel
+	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
+	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
+	
+	# Drop hidden rows
+	hidden_row_indexes = find_hidden_row_indexes(input_path)
+	df.drop(hidden_row_indexes, inplace=True)
+
+	# Change into a vertical rota with dates as rows and columns as 'dates' and 'person'
+
+	# Rename 'Date' column
+	df = df.rename(columns={dates_letnum: 'Date'})
+
+	# Filter columns (only dates column and person's rota entries column should remain at the end)
+	df = df[['Date', col_letter]]
+	
+	# Filter rows (only include rows with entries to be included)
 	df = df[pd.notnull(df['Date'])]
+	df = df[df['Date'].apply(lambda x: x <= date_end and x >= date_start)]
 
 	# Making dates and rota_list lists
 	dates = []
@@ -36,9 +65,8 @@ def convert(input_path, constants):
 		if isinstance(v, int):
 			v = v.to_pydatetime()
 		elif isinstance(v, str):
-			v = datetime.strptime(v, '%A, %d %B %Y')
+			v = datetime.strptime(v, rota_datetime_format)
 		dates.append(v)
-	# dates = df['Date'].values.tolist()
 	rota_list = df[col_letter].values.tolist()
 
 	# Setting up dates_dict - a dictionary of lists - to append entries to later
@@ -48,13 +76,17 @@ def convert(input_path, constants):
 	dates_dict['subject'] = []
 	dates_dict['all day event'] = []
 
+	if 'year_first' in locals():
+		year_to_replace = year_first
+
 	for i, rota_entry in enumerate(rota_list):
-		print(dates[i], f'({type(dates[i])})', rota_entry, f'({type(rota_entry)})')
 		date = dates[i]
 
-		if isinstance(rota_entry, float) and pd.isnull(rota_entry): # If entry is NaN, skip, don't add to entry list
-			continue
-		elif rota_entry.upper() in ['BH', 'OFF']:
+		# Determine year and replace year of date (if not already in date entries)
+
+		date_string = datetime.strftime(date, '%d/%m/%Y')
+
+		if rota_entry in entries_to_exclude:
 			continue
 		else:						# If entry is not NaN
 			subject = rota_entry			# then make the subject whatever it says and add it to the final list
@@ -69,7 +101,7 @@ def convert(input_path, constants):
 if __name__ == '__main__':
 	df_result = convert('../../../user_input/input_brighton_paeds.xlsx', {
 		'column_letter': 'W',
-		'row_start': '139',
-		'row_end': '262'
+		'date_start': '2018-12-05',
+		'date_end': '2019-04-02'
 	})
 	print(df_result)

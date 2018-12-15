@@ -11,7 +11,7 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<!-- Jquery -->
-		<script type="text/javascript" src='static/lib/jquery-3.2.1.min.js'></script>
+		<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
 
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 
@@ -28,24 +28,9 @@
 						<form action="/"><button class="btn btn-custom"><i class="material-icons" style="font-size: 25px">home</i></button></form>
 						<form action="/about"><button class="btn btn-custom">About</button></form>
 					</div>
-				
-				<div class="info on-every-page">
-					<p>If you are an FY1 doctor in the UK, use this site to convert your rota into a csv file which can be imported into Google Calendar. Simply:</p>
-					
-					<ol>
-						<li>Select your hospital and specialty/department on the home page</li>
-						<li>Upload your rota as an Excel file</li>
-						<li>Specify your row/column and any other information requested</li>
-						<li>Click 'convert!' and your converted rota will download as a csv file</li>
-						<li>Congrats, you can now import the converted rota into Google calendar</li>
-						<li>After importing into Google Calendar, you can export from Google to get a .ics format which you can import into Apple/iCloud Calendar</li>
-					</ol>
-					
-					<br>
-					<hr>
-				</div>
 					
 					{% block content %}{% endblock %}
+					
 				</div>
 				
 				<div class="footer"> <hr> <div class="section">

@@ -22,7 +22,7 @@ rotas_dir = f'{basedir}/static/rotas'
 
 rotas = {}
 
-for hosp in get_dirs(rotas_dir):
+for hosp in [el for el in get_dirs(rotas_dir) if el != 'template_form_fields']:
     rotas[hosp] = {}
     for specialty in get_dirs(f'{rotas_dir}/{hosp}'):
         rotas[hosp][specialty] = {}
@@ -42,12 +42,16 @@ nice_name_dict = {
     'canterbury': 'Kent and Canterbury Hospital',
     'brighton': 'Brighton - Royal Sussex County Hospital',
     'oxford': 'Oxford - John Radcliffe Hospital',
+    'frimley': 'Frimley - Frimley Park Hospital',
 
     'medicine': 'Medicine',
     'medicine-hcoop': 'Medicine and HCOOP',
     'respiratory': 'Respiratory Medicine',
     'surgery': 'Surgery',
+    'gensurg': 'General Surgery',
     'paediatrics': 'Paediatrics',
+    'urovasc': 'Urology and Vascular surgery',
+    'gastro': 'Gastroenterology'
 }
 
 nice_name_dict_reversed = {v: k for k, v in nice_name_dict.items()}
