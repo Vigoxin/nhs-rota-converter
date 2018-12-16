@@ -45,19 +45,20 @@ def convert(input_path, constants):
 	df_macro = dfs[3]
 
 	# Create a list of two dfs representing the macro rota - one where the first row of dates is used, and then one where the second row of dates is used
-	df_macro.drop(df_macro.index[0], inplace=True)
+	# df_macro.drop(df_macro.index[0], inplace=True)
 	
 	df_macros = []
 	df_macros.append(df_macro.copy(deep=True))
 	df_macros.append(df_macro.copy(deep=True))
+	df_macros.append(df_macro.copy(deep=True))
 	
-	for i in range(2):
+	for i in range(3):
 		df_macros[i].index = ['Date' if el == df_macros[i].index[i] else el for el in df_macros[i].index.tolist()]
 		df_macros[i] = df_macros[i].T[['Date', row_number]]
 		df_macros[i].drop(df_macros[i].index[[0,1]], inplace=True)
 
 	# Make one df_macro which concats the two to have all the dates in chronological order
-	df_macro = pd.concat([df_macros[0], df_macros[1]])
+	df_macro = pd.concat(df_macros)
 	df_macro.reset_index(drop=True, inplace=True)
 	df_macro = df_macro[df_macro['Date'].notnull()]
 	
@@ -95,8 +96,8 @@ def convert(input_path, constants):
 	return df_result
 
 if __name__ == '__main__':
-	df_result = convert('../../../user_input/waiting_input_frimley_surgery.xlsx', {
-		'sheet_num': '3',
-		'row_number': '33'
+	df_result = convert('../../../user_input/input_frimley_surgery.xlsx', {
+		'sheet_num': '2',
+		'row_number': '32'
 	})
 	print(df_result)
