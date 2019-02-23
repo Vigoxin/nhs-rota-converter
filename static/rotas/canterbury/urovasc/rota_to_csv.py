@@ -34,15 +34,15 @@ def convert(input_path, constants):
 	
 	# Constants of rota
 	possible_rota_entries = ['Stnd Day', 'Long Day', 'Half Day']
-	# days_of_week_rota_dict = {
-	# 	'Monday': 'MON',
-	# 	'Tuesday': 'TUES',
-	# 	'Wednesday': 'WED',
-	# 	'Thursday': 'THURS',
-	# 	'Friday': 'FRI',
-	# 	'Saturday': 'SAT',
-	# 	'Sunday': 'SUN'
-	# }
+	days_of_week = [
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+		'Sunday'
+	]
 
 # Main
 	# Read file
@@ -52,6 +52,12 @@ def convert(input_path, constants):
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
 	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
 
+	# Establish the type of rota variant (either pasted into normal microsoft office (type 1) or libreoffice (type 2))
+	if df.shape[0] == 22:
+		rota_variant_type = 1
+	elif df.shape[0] == 7:
+		rota_variant_type = 2
+
 	# Change into a vertical, clean rota
 		# Store days of week as rota says
 	days_of_week_rota = df.iloc[0].values.tolist()
@@ -59,33 +65,42 @@ def convert(input_path, constants):
 	days_of_week_rota.remove('Name')
 
 	df.columns = df.loc[1].values.tolist()
-	df.drop([1, 2], inplace=True)
+	df.drop([1], inplace=True)
+	if rota_variant_type == 1:
+		df.drop([2], inplace=True)
 	df.reset_index(inplace=True, drop=True)
-		# continue
 
-	# Create numpy array consisting of empty strings, of shape 6, 7, and of dtype object
-	dfnp = np.full((6, 7), '', dtype=object)
-	dfnp_row_count = 0
-	dfnp_col_count = 0
-	for df_row_count in range(df.shape[0]):
-		if pd.isnull(df.iloc[df_row_count]['Name']):
-			if (df_row_count != df.shape[0]-1 and pd.notnull(df.iloc[df_row_count+1]['Name']) ):
-				dfnp_row_count += 1
-			continue
-		for df_col_count in range(2, 9):
-			dfnp_col_count = df_col_count-2
-			if pd.notnull(df.iloc[df_row_count][df.columns[df_col_count]]):
-				dfnp[dfnp_row_count][dfnp_col_count] += df.iloc[df_row_count][df.columns[df_col_count]] + '\n'
+
+
+	if rota_variant_type == 1:
+		# Create numpy array consisting of empty strings, of shape 6, 7, and of dtype object
+		dfnp = np.full((6, 7), '', dtype=object)
+
+		dfnp_row_count = 0
+		dfnp_col_count = 0
+		for df_row_count in range(df.shape[0]):
+			if pd.isnull(df.iloc[df_row_count]['Name']):
+				if (df_row_count != df.shape[0]-1 and pd.notnull(df.iloc[df_row_count+1]['Name']) ):
+					dfnp_row_count += 1
+				continue
+			for df_col_count in range(2, 9):
+				dfnp_col_count = df_col_count-2
+				if pd.notnull(df.iloc[df_row_count][df.columns[df_col_count]]):
+					dfnp[dfnp_row_count][dfnp_col_count] += df.iloc[df_row_count][df.columns[df_col_count]] + '\n'
+
+
+		
+		# Make df into a DataFrame of the numpy array
+		df = pd.DataFrame(dfnp)
 	
-	# Make df into a DataFrame of the numpy array
-	df = pd.DataFrame(dfnp)
-
-	# Set indexes and columns
-	df.columns = days_of_week_rota
 	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
 	df.index.name = 'Week'
 
-	
+	df.drop('Name', axis=1, inplace=True) if 'Name' in df.columns else 1
+	df.drop('WK', axis=1, inplace=True) if 'WK' in df.columns else 1
+
+	df.columns = days_of_week
+
 	# Setting up dates_dict - a dictionary of lists - to append entries to later
 	dates_dict = {}
 	dates_dict['start date'] = []
@@ -138,10 +153,9 @@ def convert(input_path, constants):
 
 if __name__ == '__main__':
 	print(os.getcwd())
-	print(convert('../../../user_input/Book6.xlsx', {
+	print(convert('../../../user_input/input_canterbury_urovasc_type_2.xlsx', {
 		'date_start': '2018-12-05',
 		'date_end': '2019-04-02',
 		'week_num_start': '4',
 		'day_of_week_start': 'Wednesday'
 	}))
-
