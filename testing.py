@@ -1,3 +1,4 @@
-from rotas import rotas
-print(rotas)
-print(rotas['ashford_kent']['medicine']['converter']('static/user_input/input.csv', 'D'))
+# from rotas import rotas
+# print(rotas)
+# print(rotas['ashford_kent']['medicine']['converter']('static/user_input/input.csv', 'D'))
+print(f'hello world')

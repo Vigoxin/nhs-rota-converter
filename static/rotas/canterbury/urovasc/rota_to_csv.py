@@ -29,6 +29,7 @@ def convert(input_path, constants):
 	# Constants of individual
 	week_num_start = int(constants['week_num_start'])
 	day_of_week_start = constants['day_of_week_start']
+	print(day_of_week_start)
 	date_start = datetime.strptime(constants['date_start'], '%Y-%m-%d')
 	date_end = datetime.strptime(constants['date_end'], '%Y-%m-%d')
 	
@@ -107,7 +108,6 @@ def convert(input_path, constants):
 	dates_dict['end date'] = []
 	dates_dict['subject'] = []
 	dates_dict['all day event'] = []
-
 
 	date_crawl = date_start
 	count = 0
