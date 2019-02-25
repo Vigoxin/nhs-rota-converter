@@ -114,21 +114,16 @@ def convert(input_path, constants):
 	row_crawl = week_num_start
 	col_crawl = df.columns.tolist().index(day_of_week_start)
 	
+	print(df)
+	print(df.shape)
+
 	while date_crawl <= date_end and count < 1000:
 		count += 1
 		entry = df[df.columns.tolist()[col_crawl]][row_crawl]
 
-		# raise
+		print(col_crawl, row_crawl, date_crawl, entry)
 		if pd.isnull(entry) or 'ZERO HOURS' in entry:
-			if col_crawl == df.shape[1]-1:
-				col_crawl = 0
-				row_crawl += 1
-			else:
-				col_crawl += 1
-			if row_crawl == df.shape[0]:
-				row_crawl = 1
-			date_crawl = date_crawl + timedelta(days=1)
-			continue
+			pass
 		else:
 			for poss in possible_rota_entries:
 				if poss in entry:
@@ -138,14 +133,18 @@ def convert(input_path, constants):
 					dates_dict['subject'].append(subject)
 					dates_dict['all day event'].append('True')
 
-		if col_crawl == df.shape[1]-1:
-			col_crawl = 0
-			row_crawl += 1
-		else:
+		# Advance col_crawl (and row_crawl if end of column)
+		if col_crawl == df.shape[1]-1: # If the crawl is at an end column,
+			if row_crawl == df.shape[0]: # If the crawl is also at an end row,
+				col_crawl = 0		#...reset crawler to the first column, first row
+				row_crawl = 1
+			elif row_crawl != df.shape[0]: #Or if the crawl is NOT also at an end row,
+				col_crawl = 0
+				row_crawl += 1		#...increment to the first column and NEXT row
+		else:							# Or if the crawl is not at an end column, just move to the next column, same row
 			col_crawl += 1
-		if row_crawl == df.shape[0]:
-			row_crawl = 1
-		
+
+		# Advance date_crawl
 		date_crawl = date_crawl + timedelta(days=1)
 
 	df_result = pd.DataFrame(dates_dict)
@@ -154,8 +153,8 @@ def convert(input_path, constants):
 if __name__ == '__main__':
 	print(os.getcwd())
 	print(convert('../../../user_input/input_canterbury_urovasc_type_2.xlsx', {
-		'date_start': '2018-12-05',
-		'date_end': '2019-04-02',
-		'week_num_start': '4',
+		'date_start': '2018-04-03',
+		'date_end': '2019-06-04',
+		'week_num_start': '3',
 		'day_of_week_start': 'Wednesday'
 	}))
