@@ -109,6 +109,18 @@ body {
 
 		}
 
+		#canterbury-dual {
+
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+
+			.rota-screenshot {
+				width: 48%;
+				height: 100%;
+			}
+		}
+
 // ===========================================================
 // MODAL SETUP START
 

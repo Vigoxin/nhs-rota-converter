@@ -94,6 +94,15 @@ body {
 .box .content .rota-screenshot:hover {
   opacity: 0.7;
 }
+.box .content #canterbury-dual {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.box .content #canterbury-dual .rota-screenshot {
+  width: 48%;
+  height: 100%;
+}
 .box .content .modal {
   display: none;
   /* Hidden by default */
