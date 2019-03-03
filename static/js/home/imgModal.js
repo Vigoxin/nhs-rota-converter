@@ -17,11 +17,13 @@ if ($('#myModal').length) {
 	    modalImg.src = this.src;
 	}
 
-	var img2 = $('.rota-screenshot')[1];
-	var modalImg = document.getElementById("img01");
-	img2.onclick = function(){
-	    modal.style.display = "block";
-	    modalImg.src = this.src;
+	if ($('.rota-screenshot').length === 2) {
+		var img2 = $('.rota-screenshot')[1];
+		var modalImg = document.getElementById("img01");
+		img2.onclick = function(){
+		    modal.style.display = "block";
+		    modalImg.src = this.src;
+		}		
 	}
 
 
