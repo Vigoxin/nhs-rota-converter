@@ -43,6 +43,7 @@ nice_name_dict = {
     'brighton': 'Brighton - Royal Sussex County Hospital',
     'oxford': 'Oxford - John Radcliffe Hospital',
     'frimley': 'Frimley - Frimley Park Hospital',
+    'gstt': "London - Guy's and St Thomas' Trust",
 
     'medicine': 'Medicine',
     'medicine-hcoop': 'Medicine and HCOOP',
@@ -51,7 +52,8 @@ nice_name_dict = {
     'gensurg': 'General Surgery',
     'paediatrics': 'Paediatrics',
     'urovasc': 'Urology and Vascular surgery',
-    'gastro': 'Gastroenterology'
+    'gastro': 'Gastroenterology',
+    'cardio_sho': 'Cardiology (SHO/FY2/CMT only)'
 }
 
 nice_name_dict_reversed = {v: k for k, v in nice_name_dict.items()}
