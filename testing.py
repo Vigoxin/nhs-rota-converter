@@ -1,4 +1,13 @@
-# from rotas import rotas
-# print(rotas)
-# print(rotas['ashford_kent']['medicine']['converter']('static/user_input/input.csv', 'D'))
-print(f'hello world')
+from sched import scheduler
+import time
+import os
+
+def create_new_folder():
+	folder = 'testing_scheduler_folder'
+	if not os.path.isdir(folder):
+		os.mkdir(folder)
+
+while True:
+	s = scheduler()
+	s.enter(2, 1, create_new_folder)
+	s.run()
