@@ -3,7 +3,7 @@ function changeLink() {
 	var hospital = niceToNasty($('.dropdown.hospital').val());
 	var specialty = niceToNasty($('.dropdown.specialty').val());
 	var link = `upload/${hospital}/${specialty}`;
-	$('.upload-page-form').attr('action', 'nhsrotaconverter/' + link);
+	$('.upload-page-form').attr('action', '/nhsrotaconverter/' + link);
 }
 
 function changeHospitalDropdown() {
