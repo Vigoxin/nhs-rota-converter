@@ -50,6 +50,10 @@ for folder in folders:
 
 #  --------- ROUTES ---------
 
+@app.route('/')
+def before():
+	return render_template('templates/home.html', pd=pd)
+
 # Home route
 @app.route('/nhsrotaconverter/')
 def home():
