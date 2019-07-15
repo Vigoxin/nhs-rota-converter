@@ -1,8 +1,6 @@
 # Imports
 import numpy as np
 import pandas as pd
-import openpyxl
-import xlrd
 import os
 from datetime import date, timedelta, datetime
 

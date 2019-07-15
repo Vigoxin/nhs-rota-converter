@@ -5,7 +5,10 @@ import os
 def create_new_folder():
 	folder = 'testing_scheduler_folder'
 	if not os.path.isdir(folder):
+		print('creating new folder')
 		os.mkdir(folder)
+	else:
+		print('folder already exists')
 
 while True:
 	s = scheduler()

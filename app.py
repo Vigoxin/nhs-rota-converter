@@ -1,10 +1,8 @@
 #  --------- IMPORTS ---------
 
 from flask import Flask, render_template, request, send_file
-from jinja2 import ChoiceLoader, FileSystemLoader
 from flask_log_request_id import RequestID, current_request_id
 from werkzeug.utils import secure_filename
-import json
 from copy import deepcopy
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -53,23 +51,23 @@ for folder in folders:
 #  --------- ROUTES ---------
 
 # Home route
-@app.route('/')
+@app.route('/nhsrotaconverter/')
 def home():
 	return render_template('templates/home.html', pd=pd)
 
-@app.route('/upload/<hospital>/<specialty>')
+@app.route('/nhsrotaconverter/upload/<hospital>/<specialty>')
 def upload(hospital, specialty):
 	return render_template('templates/upload.html', hospital=hospital, specialty=specialty, pd=pd)
 
-@app.route('/expand')
+@app.route('/nhsrotaconverter/expand')
 def expand():
 	return render_template('templates/expand.html', pd=pd)
 
-@app.route('/about')
+@app.route('/nhsrotaconverter/about')
 def about():
 	return render_template('templates/about.html', pd=pd)
 
-@app.route('/convert/<hospital>/<specialty>', methods=['POST'])
+@app.route('/nhsrotaconverter/convert/<hospital>/<specialty>', methods=['POST'])
 def convert_route(hospital, specialty):
 	
 	# Function to check if file extension is only one of a few (can't allow html files - xss attacks)
