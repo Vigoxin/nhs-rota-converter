@@ -53,7 +53,8 @@ nice_name_dict = {
     'paediatrics': 'Paediatrics',
     'urovasc': 'Urology and Vascular surgery',
     'gastro': 'Gastroenterology',
-    'cardio_sho': 'Cardiology (SHO/FY2/CMT only)'
+    'cardio_sho': 'Cardiology (SHO/FY2/CMT only)',
+    'aande': 'Emergency Medicine'
 }
 
 nice_name_dict_reversed = {v: k for k, v in nice_name_dict.items()}
