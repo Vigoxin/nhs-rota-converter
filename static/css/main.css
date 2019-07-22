@@ -13,6 +13,7 @@ html {
 body {
   box-sizing: border-box;
   background: dodgerblue;
+  background: red;
   font-family: Arial;
   padding: 1rem;
   font-size: 2rem;
