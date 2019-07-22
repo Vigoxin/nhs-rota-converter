@@ -2,3 +2,6 @@
 venv
 **/__pycache__
 **/.pyc
+static/input/
+static/output/
+static/user_input/

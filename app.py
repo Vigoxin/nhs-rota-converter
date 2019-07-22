@@ -96,15 +96,19 @@ def convert_route(hospital, specialty):
 		# Saves file as a unique name with a req id and the same extension it was uploaded as
 		file.save(input_path)
 
-		# Gets the converter function for the specific rota type
-		convert = rotas[hospital][specialty]['converter']
-		
-		# Converts the file and saves it to unique name
-		df_result = convert(input_path, constants)
-		df_result.to_csv(output_path, index=False)
+		try:			
+			# Gets the converter function for the specific rota type
+			convert = rotas[hospital][specialty]['converter']
+			
+			# Converts the file and saves it to unique name
+			df_result = convert(input_path, constants)
+			df_result.to_csv(output_path, index=False)
 
-		# stores the file to be sent as a download attachment
-		to_send = send_file(output_path, attachment_filename='converted_rota.csv', as_attachment=True)	
+			# stores the file to be sent as a download attachment
+			to_send = send_file(output_path, attachment_filename='converted_rota.csv', as_attachment=True)	
+		except:
+			to_send = 'Sorry, an error occurred. Please make sure you have followed the instructions. Please email vignesh.dhileepan@gmail.com for help'
+
 
 		# Deletes both the input and output files if they exist
 		for file_to_delete in [input_path, output_path]:
