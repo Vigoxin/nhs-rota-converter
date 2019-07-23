@@ -1,6 +1,6 @@
 #  --------- IMPORTS ---------
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect
 from flask_log_request_id import RequestID, current_request_id
 from werkzeug.utils import secure_filename
 from copy import deepcopy
@@ -65,15 +65,21 @@ def upload(hospital, specialty):
 
 @app.route('/nhsrotaconverter/expand')
 def expand():
+	return redirect('/nhsrotaconverter/error')
 	return render_template('templates/expand.html', pd=pd)
 
 @app.route('/nhsrotaconverter/about')
 def about():
 	return render_template('templates/about.html', pd=pd)
 
+@app.route('/nhsrotaconverter/error')
+def error():
+	return render_template('templates/error_page.html', pd=pd)
+
 @app.route('/nhsrotaconverter/convert/<hospital>/<specialty>', methods=['POST'])
 def convert_route(hospital, specialty):
-	
+	to_send = redirect('/nhsrotaconverter/error')
+
 	# Function to check if file extension is only one of a few (can't allow html files - xss attacks)
 	ALLOWED_EXTENSIONS = ['.xlsx', '.xls', '.csv', '.docx', '.doc']
 	def allowed_file(filename):
@@ -107,7 +113,7 @@ def convert_route(hospital, specialty):
 			# stores the file to be sent as a download attachment
 			to_send = send_file(output_path, attachment_filename='converted_rota.csv', as_attachment=True)	
 		except:
-			to_send = 'Sorry, an error occurred. Please make sure you have followed the instructions. Please email vignesh.dhileepan@gmail.com for help'
+			pass
 
 
 		# Deletes both the input and output files if they exist
@@ -115,8 +121,8 @@ def convert_route(hospital, specialty):
 			if os.path.isfile(file_to_delete):
 				os.remove(file_to_delete)
 
-		# Sends the file to be sent as a download attachment
-		return to_send
+	# Sends the file to be sent as a download attachment
+	return to_send
 
 
 if __name__ == '__main__':
