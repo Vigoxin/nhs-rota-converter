@@ -65,7 +65,6 @@ def upload(hospital, specialty):
 
 @app.route('/nhsrotaconverter/expand')
 def expand():
-	return redirect('/nhsrotaconverter/error')
 	return render_template('templates/expand.html', pd=pd)
 
 @app.route('/nhsrotaconverter/about')
