@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 from utilities import *
 
 # Always add when using pandas
-pd.set_option('display.max_columns', 100)
+pd.set_option('display.max_columns', 8)
 pd.set_option('display.width', 170)
 pd.set_option('display.max_rows', 100)
 
@@ -44,6 +44,7 @@ def convert(input_path, constants):
 	# Match indexes and headers to excel
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
 	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
+	df.drop(1, inplace=True)
 
 	
 	# Drop hidden rows
@@ -60,7 +61,8 @@ def convert(input_path, constants):
 	
 	# Filter rows (only include rows with entries to be included)
 	df = df[pd.notnull(df['Date'])]
-	df.drop(1, inplace=True)
+
+	
 	df['Date'] = df['Date'].apply(lambda x: datetime.strptime(x, rota_datetime_format))
 
 	df = df[df['Date'].apply(lambda x: x >= date_start and x <= date_end)]
@@ -109,9 +111,9 @@ def convert(input_path, constants):
 	return df_result
 
 if __name__ == '__main__':
-	df_result = convert('../../../user_input/input_gstt_aande.csv', {
-		'column_letter': 'H',
-		'date_start': '2019-08-09',
-		'date_end': '2019-12-03'
+	df_result = convert('../../../user_input/input_gstt_aande2.csv', {
+		'column_letter': 'D',
+		'date_start': '2019-12-04',
+		'date_end': '2020-03-31'
 	})
 	print(df_result)
