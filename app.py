@@ -20,7 +20,7 @@ from rotas import rotas
 from rotas import nice_name_dict
 from rotas import nice_name_dict_reversed
 
-# remove functions (non-serialisable) from rotas dict, before sending rotas into templates (as part of pd) as a variable
+# remove functions (which are non-serialisable) from rotas dict, before sending rotas into templates (as part of pd) as a variable
 rotas_temp = deepcopy(rotas)
 for hosp in rotas_temp:
 	for specialty in rotas_temp[hosp]:
@@ -125,4 +125,4 @@ def convert_route(hospital, specialty):
 
 
 if __name__ == '__main__':
-	app.run(port=5001, debug=True)
+	app.run(port=5000, debug=True)

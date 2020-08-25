@@ -16,8 +16,7 @@ function changeHospitalDropdown() {
 	var options = Object.keys(rotas);
 
 	// Turns the options into nice names
-	options = options.map(x => nastyToNice(x));
-	console.log(options);
+	options = options.map(x => nastyToNice(x)).sort();
 
 	// Turns the nice names into an array of option elements
 	options = options.map(o => $(`<option> ${o} </option>`) );
@@ -42,7 +41,7 @@ function changeSpecialtyDropdown() {
 	var options = Object.keys(rotas[hospital]);
 
 	// Turns the specialties array into an array of nice names
-	options = options.map(x => nastyToNice(x));
+	options = options.map(x => nastyToNice(x)).sort();
 	
 	// Turns the nice names array into an array of option elements
 	options = options.map(o => $(`<option> ${o} </option>`) );
