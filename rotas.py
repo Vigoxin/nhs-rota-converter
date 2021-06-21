@@ -45,6 +45,7 @@ nice_name_dict = {
     'frimley': 'Frimley - Frimley Park Hospital',
     'gstt': "London - Guy's and St Thomas' Trust",
     'stgeorges': "London - St George's Hospital",
+    'woolwich': "London - Queen Elizabeth Hospital, Woolwich",
 
     'medicine': 'Medicine',
     'medicine-hcoop': 'Medicine and HCOOP',
@@ -55,6 +56,7 @@ nice_name_dict = {
     'urovasc': 'Urology and Vascular surgery',
     'gastro': 'Gastroenterology',
     'cardio_sho': 'Cardiology (SHO/FY2/CMT only)',
+    'medicine_sho': 'Medicine (SHO/FY2/CMT only)',
     'aande': 'Emergency Medicine',
     'itu': "ITU"
 }

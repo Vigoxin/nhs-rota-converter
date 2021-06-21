@@ -50,34 +50,30 @@ for folder in folders:
 
 #  --------- ROUTES ---------
 
-@app.route('/')
-def before():
-	return render_template('templates/home.html', pd=pd)
-
 # Home route
-@app.route('/nhsrotaconverter/')
+@app.route('/')
 def home():
 	return render_template('templates/home.html', pd=pd)
 
-@app.route('/nhsrotaconverter/upload/<hospital>/<specialty>')
+@app.route('/upload/<hospital>/<specialty>')
 def upload(hospital, specialty):
 	return render_template('templates/upload.html', hospital=hospital, specialty=specialty, pd=pd)
 
-@app.route('/nhsrotaconverter/expand')
+@app.route('/expand')
 def expand():
 	return render_template('templates/expand.html', pd=pd)
 
-@app.route('/nhsrotaconverter/about')
+@app.route('/about')
 def about():
 	return render_template('templates/about.html', pd=pd)
 
-@app.route('/nhsrotaconverter/error')
+@app.route('/error')
 def error():
 	return render_template('templates/error_page.html', pd=pd)
 
-@app.route('/nhsrotaconverter/convert/<hospital>/<specialty>', methods=['POST'])
+@app.route('/convert/<hospital>/<specialty>', methods=['POST'])
 def convert_route(hospital, specialty):
-	to_send = redirect('/nhsrotaconverter/error')
+	to_send = redirect('/error')
 
 	# Function to check if file extension is only one of a few (can't allow html files - xss attacks)
 	ALLOWED_EXTENSIONS = ['.xlsx', '.xls', '.csv', '.docx', '.doc']
