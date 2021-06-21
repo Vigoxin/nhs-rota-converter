@@ -1,9 +1,11 @@
 if ($('#myModal').length) {
 	function changeImage() {
+		$('.rota-screenshot').css("display", "none");
 		hospital = niceToNasty($('.dropdown.hospital').val());
 		specialty = niceToNasty($('.dropdown.specialty').val());
 		imgURL = rotas[hospital][specialty]['img'];
 		$('.rota-screenshot').attr('src', imgURL);
+		$('.rota-screenshot').css("display", "block");
 	}
 
 	// Get the modal
