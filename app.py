@@ -93,6 +93,7 @@ def convert_route(hospital, specialty):
 
 		# gets constants from request form data
 		constants = request.form.to_dict()
+		print(constants)
 
 		# Saves file as a unique name with a req id and the same extension it was uploaded as
 		file.save(input_path)
@@ -107,7 +108,8 @@ def convert_route(hospital, specialty):
 
 			# stores the file to be sent as a download attachment
 			to_send = send_file(output_path, attachment_filename='converted_rota.csv', as_attachment=True)	
-		except:
+		except Exception as e:
+			print(e)
 			pass
 
 
@@ -121,4 +123,4 @@ def convert_route(hospital, specialty):
 
 
 if __name__ == '__main__':
-	app.run(port=5000, debug=True)
+	app.run(port=5005, debug=True)

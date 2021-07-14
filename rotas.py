@@ -46,6 +46,7 @@ nice_name_dict = {
     'gstt': "London - Guy's and St Thomas' Trust",
     'stgeorges': "London - St George's Hospital",
     'woolwich': "London - Queen Elizabeth Hospital, Woolwich",
+    'ashford_st_peters': "Ashford and St Peter's Hospital, Chertsey",
 
     'medicine': 'Medicine',
     'medicine-hcoop': 'Medicine and HCOOP',
