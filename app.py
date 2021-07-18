@@ -87,21 +87,19 @@ def convert_route(hospital, specialty):
 		constants = request.form.to_dict()
 		print(constants)
 
-		# try:
-		
-		# Gets the converter function for the specific rota type
-		convert = rotas[hospital][specialty]['converter']
-		
-		# Reads the file directly from the post request into a pandas dataframe, 
-		# then converts the file
-		df_result = convert(file, constants)
-		to_send = Response(df_result.to_csv(index=False), mimetype="text/csv", headers={
-			"Content-disposition": "attachment; filename=converted_rota.csv"
-		})
-
-		# except Exception as e:
-		# 	print(e)
-		# 	pass
+		try:
+			# Gets the converter function for the specific rota type
+			convert = rotas[hospital][specialty]['converter']
+			
+			# Reads the file directly from the post request into a pandas dataframe, 
+			# then converts the file
+			df_result = convert(file, constants)
+			to_send = Response(df_result.to_csv(index=False), mimetype="text/csv", headers={
+				"Content-disposition": "attachment; filename=converted_rota.csv"
+			})
+		except Exception as e:
+			print(e)
+			pass
 
 	# Sends the file to be sent as a download attachment
 	return to_send
