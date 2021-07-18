@@ -1,9 +1,10 @@
 #  --------- IMPORTS ---------
 
-from flask import Flask, render_template, request, send_file, redirect
+from flask import Flask, render_template, request, send_file, redirect, Response, make_response
 from flask_log_request_id import RequestID, current_request_id
 from werkzeug.utils import secure_filename
 from copy import deepcopy
+from pandas import read_excel
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -46,8 +47,6 @@ for folder in folders:
 		os.mkdir(folder)
 
 
-
-
 #  --------- ROUTES ---------
 
 # Home route
@@ -81,42 +80,28 @@ def convert_route(hospital, specialty):
 		return '.' in filename and os.path.splitext(filename)[1].lower() in ALLOWED_EXTENSIONS
 
 	# gets the file and its extension
-	file = request.files['rota']
-	if file and allowed_file(file.filename):
-		filename = secure_filename(file.filename)
-		fileext = os.path.splitext(filename)[1]
-
-		# gets request ID so that each file to upload and process has a unique name
-		req_id = current_request_id()
-		input_path = f'static/input/input_{req_id}{fileext}'
-		output_path = f'static/output/output_{req_id}.csv'
+	file = request.files.get('rota')
+	if file and allowed_file(file.filename):		
 
 		# gets constants from request form data
 		constants = request.form.to_dict()
 		print(constants)
 
-		# Saves file as a unique name with a req id and the same extension it was uploaded as
-		file.save(input_path)
+		# try:
+		
+		# Gets the converter function for the specific rota type
+		convert = rotas[hospital][specialty]['converter']
+		
+		# Reads the file directly from the post request into a pandas dataframe, 
+		# then converts the file
+		df_result = convert(file, constants)
+		to_send = Response(df_result.to_csv(index=False), mimetype="text/csv", headers={
+			"Content-disposition": "attachment; filename=converted_rota.csv"
+		})
 
-		try:			
-			# Gets the converter function for the specific rota type
-			convert = rotas[hospital][specialty]['converter']
-			
-			# Converts the file and saves it to unique name
-			df_result = convert(input_path, constants)
-			df_result.to_csv(output_path, index=False)
-
-			# stores the file to be sent as a download attachment
-			to_send = send_file(output_path, attachment_filename='converted_rota.csv', as_attachment=True)	
-		except Exception as e:
-			print(e)
-			pass
-
-
-		# Deletes both the input and output files if they exist
-		for file_to_delete in [input_path, output_path]:
-			if os.path.isfile(file_to_delete):
-				os.remove(file_to_delete)
+		# except Exception as e:
+		# 	print(e)
+		# 	pass
 
 	# Sends the file to be sent as a download attachment
 	return to_send

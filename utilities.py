@@ -6,18 +6,19 @@ import numpy as np
 
 def find_hidden_row_indexes(input_path):
 	hidden_row_indexes = []
-	
-	# Hidden rows if .xls file:
-	if os.path.splitext(input_path)[1] == '.xls':
-		book = xlrd.open_workbook(input_path, formatting_info=1) #open our xls file, there's lots of extra default options in this call, for logging etc. take a look at the docs
-		sheet = book.sheet_by_index(0) #or by the index it has in excel's sheet collection
+
+	# # Hidden rows if .xls file:
+	# if ext == '.xls':
+	# 	book = xlrd.open_workbook(input_path, formatting_info=1) #open our xls file, there's lots of extra default options in this call, for logging etc. take a look at the docs
+	# 	sheet = book.sheet_by_index(0) #or by the index it has in excel's sheet collection
 		
-		for r in range(sheet.nrows):
-			if sheet.rowinfo_map[r].hidden == 1:
-				hidden_row_indexes.append(r+1)
+	# 	for r in range(sheet.nrows):
+	# 		if sheet.rowinfo_map[r].hidden == 1:
+	# 			hidden_row_indexes.append(r+1)
 
 	# Hidden rows if .xlsx file:
-	elif os.path.splitext(input_path)[1] == '.xlsx':
+	# if ext == '.xlsx':
+	if True:
 		wb = openpyxl.load_workbook(input_path)
 		ws = wb.worksheets[0]
 
