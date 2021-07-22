@@ -47,8 +47,10 @@ nice_name_dict = {
     'stgeorges': "London - St George's Hospital",
     'woolwich': "London - Queen Elizabeth Hospital, Woolwich",
     'ashford_st_peters': "Ashford and St Peter's Trust, Chertsey",
+    "lewisham": "London - Lewisham Hospital",
 
     'medicine': 'Medicine',
+    'medicine-coe': "Medicine and Care of the Elderly",
     'medicine-hcoop': 'Medicine and HCOOP',
     'respiratory': 'Respiratory Medicine',
     'surgery': 'Surgery',

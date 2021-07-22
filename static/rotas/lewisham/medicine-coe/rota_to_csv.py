@@ -21,18 +21,22 @@ def convert(input_path, constants):
 # Setup
 
 	# Constants of individual
+	sheet_num = int(constants['sheet_num'])-1
 	row_number = int(constants['row_number'])
+	date_start = dt.strptime(constants['date_start'], '%Y-%m-%d')
+	date_end = dt.strptime(constants['date_end'], '%Y-%m-%d')
 
 	# Constants of rota format
 	rota_datetime_format = '%d/%m/%Y'
 	dates_letnum = 3 #the column/row which has the dates in it
-	entries_to_exclude = ['Leave', 'Off', 'Zero', np.nan, datetime.time(0,0,0), 'BH']
+	entries_to_exclude = ['ZERO', np.nan, datetime.time(0,0,0)]
 
 
 
 # Main
 	# Read file
-	df = pd.read_excel(input_path, header=None)
+	sheet_names = pd.ExcelFile(input_path).sheet_names
+	df = pd.read_excel(input_path, sheet_name=sheet_names[sheet_num],header=None)
 
 	# Match indexes and headers to excel
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
@@ -53,6 +57,9 @@ def convert(input_path, constants):
 	# reset index
 	df.reset_index(inplace=True, drop=True)
 	df.reset_index(inplace=True, drop=True)
+
+	# Filter based on date range selected by user
+	df = df[df['Date'].apply(lambda x: x >= date_start and x <= date_end)]
 
 	# Making dates and rota_list lists
 	dates = []
@@ -86,6 +93,9 @@ def convert(input_path, constants):
 
 if __name__ == '__main__':
 	print(os.getcwd())
-	print(convert('../../../user_input/input_ashford_st_peters_medicine.xlsx', {
-		'row_number': '120',
+	print(convert('../../../user_input/input_lewisham_medicine.xlsx', {
+		'sheet_num': '3',
+		'row_number': '20',
+		'date_start': '2021-08-04',
+		'date_end': '2021-11-30'
 	}))
