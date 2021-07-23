@@ -48,6 +48,7 @@ nice_name_dict = {
     'woolwich': "London - Queen Elizabeth Hospital, Woolwich",
     'ashford_st_peters': "Ashford and St Peter's Trust, Chertsey",
     "lewisham": "London - Lewisham Hospital",
+    "cardiff": "Cardiff - UHW / UHL",
 
     'medicine': 'Medicine',
     'medicine-coe': "Medicine and Care of the Elderly",
