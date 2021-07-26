@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 from datetime import date, timedelta, datetime
+import datetime as dt
 
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
@@ -17,25 +18,17 @@ def convert(input_path, constants):
 # Setup
 	# Constants of individual
 	col_letter = constants['column_letter'].upper()
+	date_start = datetime.strptime(constants['date_start'], '%Y-%m-%d')
+	date_end = datetime.strptime(constants['date_end'], '%Y-%m-%d')
 
 	# Constants of rota format
 	rota_datetime_format = '%d/%m/%y'
 	dates_letnum = 'B' #the column/row which has the dates in it
-	entries_to_exclude = ['ZERO', 'OFF']
+	entries_to_exclude = ['Zero', 'Off', 'A/L', 'A']
 
 # Main
 	# Read file
-	df = pd.read_excel(input_path, header=None)
-
-	# Match indexes and headers to excel
-	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
-	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
-
-	# Define number of rows to read: If rota is horizontal, then specify nrows for pd.read_excel. If rota is vertical, then nrows=None
-	nrows = None
-	
-	# Load again but only nrows number of rows
-	df = pd.read_excel(input_path, nrows=nrows, header=None)
+	df = pd.read_excel(input_path, header=4)
 
 	# Match indexes and headers to excel
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
@@ -45,7 +38,6 @@ def convert(input_path, constants):
 	# hidden_row_indexes = find_hidden_row_indexes(input_path)
 	# df.drop(hidden_row_indexes, inplace=True)
 
-
 	# Change into a vertical rota with dates as rows and columns as 'dates' and 'person'
 
 	# Rename 'Date' column
@@ -53,22 +45,18 @@ def convert(input_path, constants):
 
 	# Filter columns (only dates column and person's rota entries column should remain at the end)
 	df = df[['Date', col_letter]]
-
 	
 	# Filter rows (only include rows with entries to be included)
 	df = df[pd.notnull(df['Date'])]
-	# if True:	# Modifiable:
-		# df.drop(2, inplace=True)
-		# df = df[df['Date'].apply(lambda x: x <= date_end and x >= date_start)]
+	
+	# Remove rows in the 'Date' column which are not dt.datetime (e.g. the rows in between the rotations)
+	df = df[df["Date"].apply(lambda x: isinstance(x, dt.datetime))]
+	
+	# Remove rows in 'Date' column which aren't in the specified date range
+	df = df[df['Date'].apply(lambda x: x <= date_end and x >= date_start)]
 
 	# Making dates and rota_list lists
-	dates = []
-	for i, v in df['Date'].iteritems():
-		if isinstance(v, int):
-			v = v.to_pydatetime()
-		elif isinstance(v, str):
-			v = datetime.strptime(v, rota_datetime_format)
-		dates.append(v)
+	dates = df["Date"].tolist()
 	rota_list = df[col_letter].values.tolist()
 
 	# Setting up dates_dict - a dictionary of lists - to append entries to later
@@ -83,10 +71,9 @@ def convert(input_path, constants):
 
 	for i, rota_entry in enumerate(rota_list):
 		date = dates[i]
-
+		
 		date_string = datetime.strftime(date, '%d/%m/%Y')
 		
-
 		if rota_entry not in entries_to_exclude: 					#If it's not already a zero day
 			if isinstance(rota_entry, float) and pd.isnull(rota_entry): # If rota_entry is NaN
 				is_weekend = False if date.weekday() < 5 else True
@@ -106,5 +93,9 @@ def convert(input_path, constants):
 	return df_result
 
 if __name__ == '__main__':
-	df_result = convert('../../../user_input/input_woolwich_medicine.xlsx', {'column_letter': 'C'})
+	df_result = convert('../../../user_input/input_forth_valley_royal_medicine.xlsx', {
+		'column_letter': 'C',
+		'date_start': '2021-08-04',
+		'date_end': '2021-11-30'
+	})
 	print(df_result)
