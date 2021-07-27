@@ -50,6 +50,7 @@ nice_name_dict = {
     "lewisham": "London - Lewisham Hospital",
     "cardiff": "Cardiff - UHW / UHL",
     "forth_valley_royal": "Scotland - Forth Valley Royal Hospital, Larbert",
+    "pruh": "London - Princess Royal University Hospital, Orpington",
 
     'medicine': 'Medicine',
     "general_medicine": "General Medicine",
@@ -65,7 +66,8 @@ nice_name_dict = {
     'gastro': 'Gastroenterology',
     'cardio_sho': 'Cardiology (SHO/FY2/CMT only)',
     'medicine_sho': 'Medicine (SHO/FY2/CMT only)',
-    'aande': 'Emergency Medicine',
+    'aande': 'Accident and Emergency',
+    'aande_sho': 'Accident and Emergency (SHO)',
     'itu': "ITU"
 }
 
