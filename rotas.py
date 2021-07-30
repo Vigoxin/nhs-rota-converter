@@ -51,6 +51,7 @@ nice_name_dict = {
     "cardiff": "Cardiff - UHW / UHL",
     "forth_valley_royal": "Scotland - Forth Valley Royal Hospital, Larbert",
     "pruh": "London - Princess Royal University Hospital, Orpington",
+    "colchester": "Colchester - Colchester General Hospital",
 
     'medicine': 'Medicine',
     "general_medicine": "General Medicine",
@@ -66,6 +67,7 @@ nice_name_dict = {
     'gastro': 'Gastroenterology',
     'cardio_sho': 'Cardiology (SHO/FY2/CMT only)',
     'medicine_sho': 'Medicine (SHO/FY2/CMT only)',
+    'emergency_medicine': 'Emergency Medicine',
     'aande': 'Accident and Emergency',
     'aande_sho': 'Accident and Emergency (SHO)',
     'itu': "ITU"
