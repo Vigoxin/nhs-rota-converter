@@ -39,7 +39,7 @@ for hosp in [el for el in get_dirs(rotas_dir) if el != 'template_form_fields']:
 
 nice_name_dict = {
     'ashford_kent': 'Ashford, Kent - William Harvey Hospital',
-    'canterbury': 'Kent and Canterbury Hospital',
+    'canterbury': 'Canterbury - Kent and Canterbury Hospital',
     'brighton': 'Brighton - Royal Sussex County Hospital',
     'oxford': 'Oxford - John Radcliffe Hospital',
     'frimley': 'Frimley - Frimley Park Hospital',
