@@ -28,7 +28,7 @@ def convert(input_path, constants):
 
 	# Constants of rota format
 	rota_datetime_format = '%d/%m/%Y'
-	dates_letnum = 3 #the column/row which has the dates in it
+	dates_letnum = int(constants['dates_row_num']) #the column/row which has the dates in it
 	entries_to_exclude = ['ZERO', np.nan, datetime.time(0,0,0)]
 
 
@@ -54,11 +54,19 @@ def convert(input_path, constants):
 	# Filter rows (only include rows with entries to be included)
 	df = df[pd.notnull(df['Date'])] #remove rows where the date column is null
 
+		# Change all dates into strings
+	df['Date'] = df['Date'].apply(lambda x: x.strftime('%d/%m/%Y') if isinstance(x,datetime.datetime) else x)
+
 	# reset index
 	df.reset_index(inplace=True, drop=True)
 	df.reset_index(inplace=True, drop=True)
 
 	# Filter based on date range selected by user
+		# Remove date entries which say 'AL TOTAL' or 'SL TOTAL' etc
+	df = df[df['Date'].apply(lambda x: not re.search('[a-zA-Z]', x))]
+		# Convert all to datetime
+	df['Date'] = pd.to_datetime(df['Date'])
+		# Actual filtering
 	df = df[df['Date'].apply(lambda x: x >= date_start and x <= date_end)]
 
 	# Making dates and rota_list lists
@@ -93,9 +101,17 @@ def convert(input_path, constants):
 
 if __name__ == '__main__':
 	print(os.getcwd())
-	print(convert('../../../user_input/input_lewisham_medicine.xlsx', {
-		'sheet_num': '3',
-		'row_number': '20',
-		'date_start': '2021-08-04',
-		'date_end': '2021-11-30'
+	print(convert('../../../user_input/input_lewisham_medicine_2.xlsx', {
+		'sheet_num': '2',
+		'row_number': '6',
+		'dates_row_num': '4',
+		'date_start': '2021-12-01',
+		'date_end': '2022-04-05'
 	}))
+	# print(convert('../../../user_input/input_lewisham_medicine.xlsx', {
+	# 	'sheet_num': '3',
+	# 	'row_number': '20',
+	# 	'dates_row_num': '3',
+	# 	'date_start': '2021-08-04',
+	# 	'date_end': '2021-11-30'
+	# }))
