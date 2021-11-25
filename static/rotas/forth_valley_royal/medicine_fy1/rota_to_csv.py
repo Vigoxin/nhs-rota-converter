@@ -28,7 +28,15 @@ def convert(input_path, constants):
 
 # Main
 	# Read file
-	df = pd.read_excel(input_path, header=4)
+	df = pd.read_excel(input_path)
+
+	# Match indexes and headers to excel
+	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
+	df.index = pd.Series(df.index).shift(-1).fillna(len(df.index)).astype(int)
+	
+	# Read again, but from the NAN row onwards
+	a = df["A"][pd.isnull(df["A"])]
+	df = pd.read_excel(input_path, header=a.index[0])
 
 	# Match indexes and headers to excel
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
@@ -51,7 +59,7 @@ def convert(input_path, constants):
 	
 	# Remove rows in the 'Date' column which are not dt.datetime (e.g. the rows in between the rotations)
 	df = df[df["Date"].apply(lambda x: isinstance(x, dt.datetime))]
-	
+
 	# Remove rows in 'Date' column which aren't in the specified date range
 	df = df[df['Date'].apply(lambda x: x <= date_end and x >= date_start)]
 
@@ -93,9 +101,14 @@ def convert(input_path, constants):
 	return df_result
 
 if __name__ == '__main__':
-	df_result = convert('../../../user_input/input_forth_valley_royal_medicine.xlsx', {
-		'column_letter': 'C',
-		'date_start': '2021-08-04',
-		'date_end': '2021-11-30'
+	# df_result = convert('../../../user_input/input_forth_valley_royal_medicine.xlsx', {
+	# 	'column_letter': 'C',	
+	# 	'date_start': '2021-08-04',
+	# 	'date_end': '2021-11-30'
+	# })
+	df_result = convert('../../../user_input/input_forth_valley_royal_aau.xlsx', {
+		'column_letter': 'C',	
+		'date_start': '2021-12-01',
+		'date_end': '2022-04-05'
 	})
 	print(df_result)
