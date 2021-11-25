@@ -57,7 +57,7 @@ nice_name_dict = {
     "general_medicine": "General Medicine",
     'medicine-coe': "Medicine and Care of the Elderly",
     'medicine-hcoop': 'Medicine and HCOOP',
-    'medicine_fy1': "Medicine (FY1 only)",
+    'medicine_aau_fy1': "Medicine/AAU (FY1 only)",
     'respiratory': 'Respiratory Medicine',
     'surgery': 'Surgery',
     'gensurg': 'General Surgery',
