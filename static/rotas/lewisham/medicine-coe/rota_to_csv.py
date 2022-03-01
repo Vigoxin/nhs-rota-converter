@@ -12,16 +12,25 @@ from utilities import *
 
 # Always add when using pandas
 pd.set_option('display.max_columns', 10)
-pd.set_option('display.max_rows', 200)
+pd.set_option('display.max_rows', 2000)
 pd.set_option('display.width', 150)
 
+# https://stackoverflow.com/questions/34156830/leave-dates-as-strings-using-read-excel-function-from-pandas-in-python
+def undate(x):
+    if pd.isnull(x):
+        return x
+    try:
+        return x.strftime('%d/%m/%Y')
+    except AttributeError:
+        return x
+    except Exception:
+        raise
 
 def convert(input_path, constants):
 
 # Setup
 
 	# Constants of individual
-	sheet_num = int(constants['sheet_num'])-1
 	row_number = int(constants['row_number'])
 	date_start = dt.strptime(constants['date_start'], '%Y-%m-%d')
 	date_end = dt.strptime(constants['date_end'], '%Y-%m-%d')
@@ -35,8 +44,7 @@ def convert(input_path, constants):
 
 # Main
 	# Read file
-	sheet_names = pd.ExcelFile(input_path).sheet_names
-	df = pd.read_excel(input_path, sheet_name=sheet_names[sheet_num],header=None)
+	df = pd.read_csv(input_path, header=None)
 
 	# Match indexes and headers to excel
 	df.columns = [ColNum2ColName(i+1) for i, v in enumerate(df.columns)]
@@ -60,12 +68,14 @@ def convert(input_path, constants):
 	# reset index
 	df.reset_index(inplace=True, drop=True)
 	df.reset_index(inplace=True, drop=True)
-
+	
+	
 	# Filter based on date range selected by user
 		# Remove date entries which say 'AL TOTAL' or 'SL TOTAL' etc
 	df = df[df['Date'].apply(lambda x: not re.search('[a-zA-Z]', x))]
 		# Convert all to datetime
-	df['Date'] = pd.to_datetime(df['Date'])
+	df['Date'] = pd.to_datetime(df['Date'], format="%d/%m/%Y")
+	# df['Date'] = pd.to_datetime(df['Date'])
 		# Actual filtering
 	df = df[df['Date'].apply(lambda x: x >= date_start and x <= date_end)]
 
@@ -101,17 +111,24 @@ def convert(input_path, constants):
 
 if __name__ == '__main__':
 	print(os.getcwd())
-	print(convert('../../../user_input/input_lewisham_medicine_2.xlsx', {
-		'sheet_num': '2',
-		'row_number': '6',
-		'dates_row_num': '4',
-		'date_start': '2021-12-01',
-		'date_end': '2022-04-05'
-	}))
-	# print(convert('../../../user_input/input_lewisham_medicine.xlsx', {
+	# print(convert('../../../user_input/input_lewisham_medicine.csv', {
 	# 	'sheet_num': '3',
 	# 	'row_number': '20',
 	# 	'dates_row_num': '3',
 	# 	'date_start': '2021-08-04',
 	# 	'date_end': '2021-11-30'
 	# }))
+	# print(convert('../../../user_input/input_lewisham_medicine_2.csv', {
+	# 	'sheet_num': '2',
+	# 	'row_number': '6',
+	# 	'dates_row_num': '4',
+	# 	'date_start': '2021-12-01',
+	# 	'date_end': '2022-04-05'
+	# }))
+	print(convert('../../../user_input/input_lewisham_medicine_3.csv', {
+		'sheet_num': '4',
+		'row_number': '14',
+		'dates_row_num': '2',
+		'date_start': '2022-04-06',
+		'date_end': '2022-08-02'
+	}))
