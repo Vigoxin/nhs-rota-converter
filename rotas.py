@@ -52,8 +52,10 @@ nice_name_dict = {
     "forth_valley_royal": "Scotland - Forth Valley Royal Hospital, Larbert",
     "pruh": "London - Princess Royal University Hospital, Orpington",
     "colchester": "Colchester - Colchester General Hospital",
+    "winchester": "Winchester - Royal Hampshire County Hospital",
 
     'medicine': 'Medicine',
+    'medicine_personal': 'Medicine - personal rota',
     "general_medicine": "General Medicine",
     'medicine-coe': "Medicine and Care of the Elderly",
     'medicine-hcoop': 'Medicine and HCOOP',
