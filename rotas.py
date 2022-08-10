@@ -54,6 +54,7 @@ nice_name_dict = {
     "colchester": "Colchester - Colchester General Hospital",
     "winchester": "Winchester - Royal Hampshire County Hospital",
     "glenfield": "Leicester - Glenfield Hospital",
+    "leicester_royal_infirmary": "Leicester - Leicester Royal Infirmary",
 
     'medicine': 'Medicine',
     'medicine_personal': 'Medicine - personal rota',
@@ -74,6 +75,7 @@ nice_name_dict = {
     'medicine_sho': 'Medicine (SHO/FY2/CMT only)',
     'emergency_medicine': 'Emergency Medicine',
     'aande': 'Accident and Emergency',
+    'aande_personalised': 'Accident and Emergency - personalised rota',
     'aande_sho': 'Accident and Emergency (SHO)',
     'itu': "ITU"
 }
