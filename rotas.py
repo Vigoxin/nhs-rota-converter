@@ -53,6 +53,7 @@ nice_name_dict = {
     "pruh": "London - Princess Royal University Hospital, Orpington",
     "colchester": "Colchester - Colchester General Hospital",
     "winchester": "Winchester - Royal Hampshire County Hospital",
+    "glenfield": "Leicester - Glenfield Hospital",
 
     'medicine': 'Medicine',
     'medicine_personal': 'Medicine - personal rota',
@@ -65,6 +66,7 @@ nice_name_dict = {
     'surgery': 'Surgery',
     'gensurg': 'General Surgery',
     'surgical_fy1': 'FY1 - Surgery only',
+    'vascular_fy1': 'Vascular - FY1 only',
     'paediatrics': 'Paediatrics',
     'urovasc': 'Urology and Vascular surgery',
     'gastro': 'Gastroenterology',
