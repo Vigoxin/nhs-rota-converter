@@ -77,7 +77,8 @@ nice_name_dict = {
     'aande': 'Accident and Emergency',
     'aande_personalised': 'Accident and Emergency - personalised rota',
     'aande_sho': 'Accident and Emergency (SHO)',
-    'itu': "ITU"
+    'itu': "ITU",
+    "renal": "Renal medicine"
 }
 
 nice_name_dict_reversed = {v: k for k, v in nice_name_dict.items()}
