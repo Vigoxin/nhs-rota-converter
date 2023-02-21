@@ -12,8 +12,7 @@ html {
 
 body {
   box-sizing: border-box;
-  /*background: dodgerblue;*/
-  background: red;
+  background: dodgerblue;
   font-family: Arial;
   padding: 1rem;
   font-size: 2rem;
