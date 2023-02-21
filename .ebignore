@@ -1,0 +1,8 @@
+.DS_Store
+venv
+**/__pycache__
+**/.pyc
+static/input/
+static/output/
+static/user_input/
+todo.txt

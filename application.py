@@ -10,11 +10,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 #  --------- SETUP ---------
 
-# initialise app
-app = Flask(__name__, template_folder='./', static_folder='./static')
+# initialise application
+application = Flask(__name__, template_folder='./', static_folder='./static')
 
 # Set up RequestID
-RequestID(app)
+RequestID(application)
 
 # Import dict of all possible rota types
 from rotas import rotas
@@ -50,27 +50,27 @@ for folder in folders:
 #  --------- ROUTES ---------
 
 # Home route
-@app.route('/')
+@application.route('/')
 def home():
 	return render_template('templates/home.html', pd=pd)
 
-@app.route('/upload/<hospital>/<specialty>')
+@application.route('/upload/<hospital>/<specialty>')
 def upload(hospital, specialty):
 	return render_template('templates/upload.html', hospital=hospital, specialty=specialty, pd=pd)
 
-@app.route('/expand')
+@application.route('/expand')
 def expand():
 	return render_template('templates/expand.html', pd=pd)
 
-@app.route('/about')
+@application.route('/about')
 def about():
 	return render_template('templates/about.html', pd=pd)
 
-@app.route('/error')
+@application.route('/error')
 def error():
 	return render_template('templates/error_page.html', pd=pd)
 
-@app.route('/convert/<hospital>/<specialty>', methods=['POST'])
+@application.route('/convert/<hospital>/<specialty>', methods=['POST'])
 def convert_route(hospital, specialty):
 	to_send = redirect('/error')
 
@@ -106,4 +106,4 @@ def convert_route(hospital, specialty):
 
 
 if __name__ == '__main__':
-	app.run(port=5005, debug=True)
+	application.run(port=5005, debug=True)
