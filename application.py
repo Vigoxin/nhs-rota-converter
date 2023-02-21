@@ -106,4 +106,4 @@ def convert_route(hospital, specialty):
 
 
 if __name__ == '__main__':
-	application.run(port=5005, debug=True)
+	application.run(port=8000, debug=True)
